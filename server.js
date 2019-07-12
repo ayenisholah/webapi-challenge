@@ -9,7 +9,7 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
-server.post('/', async (req, res) => {
+server.post('/actions', async (req, res) => {
   try {
     const action = await Actions.insert(req.body);
     res.status(201).json(action);
@@ -21,7 +21,7 @@ server.post('/', async (req, res) => {
   }
 });
 
-server.get('/', async (req, res) => {
+server.get('/actions', async (req, res) => {
   try {
     const actions = await Actions.get();
     res.status(200).json(actions);
@@ -33,7 +33,7 @@ server.get('/', async (req, res) => {
   }
 });
 
-server.put('/:id', async (req, res) => {
+server.put('/actions/:id', async (req, res) => {
   try {
     const action = await Actions.update(req.params.id, req.body);
     if (action) {
@@ -49,7 +49,7 @@ server.put('/:id', async (req, res) => {
   }
 });
 
-server.delete('/:id', async (req, res) => {
+server.delete('/actions/:id', async (req, res) => {
   try {
     const count = await Actions.remove(req.params.id);
     if (count > 0) {
@@ -65,7 +65,7 @@ server.delete('/:id', async (req, res) => {
   }
 });
 
-server.post('/', async (req, res) => {
+server.post('/projects', async (req, res) => {
   try {
     const project = await Projects.insert();
     res.status(200).json(project);
@@ -77,6 +77,16 @@ server.post('/', async (req, res) => {
   }
 });
 
-server.get
+server.get('/projects', async (req, res) => {
+  try {
+    const projects = await Projects.get();
+    res.status(200).json(projects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving actions'
+    });
+  }
+});
 
 module.exports = server;
