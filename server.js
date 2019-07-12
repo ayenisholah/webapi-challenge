@@ -89,6 +89,19 @@ server.get('/projects', async (req, res) => {
   }
 });
 
+server.get('/projects/:id/actions', async (req, res) => {
+  try {
+    const actions = await Projects.getProjectActions(req.params.id);
+
+    res.status(200).json(actions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Error getting project actions',
+    });
+  }
+});
+
 server.put('/projects/:id', async (req, res) => {
   try {
     const project = await Projects.update(req.params.id, req.body);
