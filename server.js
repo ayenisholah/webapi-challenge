@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 const Actions = require('./data/helpers/actionModel');
+const Projects = require('./data/helpers/projectModel');
 
 const server = express();
 
@@ -63,5 +64,19 @@ server.delete('/:id', async (req, res) => {
     });
   }
 });
+
+server.post('/', async (req, res) => {
+  try {
+    const project = await Projects.insert();
+    res.status(200).json(project);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Error adding project'
+    });
+  }
+});
+
+server.get
 
 module.exports = server;
