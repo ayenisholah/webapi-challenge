@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom'
 import axios from 'axios';
 
+import Home from './components/Home'
+
 class App extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       actions: [],
@@ -14,7 +17,7 @@ class App extends Component {
       .then(res => {
         this.setState({ actions: res.data })
       })
-      .catch (error => {
+      .catch(error => {
         console.log(error);
       })
   }
@@ -22,6 +25,13 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Link to='/actions'>Actions</Link>
+
+        <Route
+          exact
+          path='/'
+          component={Home}
+        />
 
       </div>
     )
