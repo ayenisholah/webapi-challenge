@@ -4,19 +4,19 @@ import axios from 'axios';
 
 import Home from './components/Home'
 import Actions from './components/Actions';
+import Action from './components/Action';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       actions: [],
-      projects: []
     };
   }
   componentDidMount() {
     axios.get('http://localhost:9090/actions')
-      .then(res => {
-        this.setState({ actions: res.data })
+      .then(response => {
+        this.setState({ actions: response.data })
       })
       .catch(error => {
         console.log(error);
@@ -41,8 +41,14 @@ class App extends Component {
           render={(props) => <Actions {...props} actions={this.state.actions} />}
         />
 
+        <Route
+          exact
+          path='/actions/:id'
+          render={(props) => <Action {...props} actions={this.state.actions} />}
+        />
+
       </div>
-    )
+    );
   }
 }
 

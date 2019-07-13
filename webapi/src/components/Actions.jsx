@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Action from './Action';
 
 
 class Actions extends Component {
@@ -24,5 +25,9 @@ class Actions extends Component {
     )
   }
 }
+
+Action.defaultProps = {
+  action: [],
+};
 
 export default Actions;
